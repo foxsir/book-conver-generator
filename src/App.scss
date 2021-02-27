@@ -1,5 +1,27 @@
 @import '~antd/dist/antd.css';
 
+@font-face {
+  font-family: SourceHanSansHWSC-Bold;
+  src: url(/fonts/SourceHanSansHWSC-Bold.otf);
+}
+@font-face {
+  font-family: SourceHanSansHWSC-Regular;
+  src: url(/fonts/SourceHanSansHWSC-Regular.otf);
+}
+@font-face {
+  font-family: SourceHanSansSC-Medium;
+  src: url(/fonts/SourceHanSansSC-Medium.otf);
+}
+@font-face {
+  font-family: SourceHanSansSC-Normal;
+  src: url(/fonts/SourceHanSansSC-Normal.otf);
+}
+@font-face {
+  font-family: SourceHanSansSC-Regular;
+  src: url(/fonts/SourceHanSansSC-Regular.otf);
+}
+
+
 #main {
   max-width: 1200px;
   margin: auto;

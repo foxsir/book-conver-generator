@@ -1,27 +1,29 @@
 import React, {Component} from 'react';
 import {Button, Col, Row} from "antd";
 
-class GradientGenerator extends Component<{changeColor: Function}> {
-  public colorA = "#B149FF";
-  public colorB = "#00ffff";
-
+class GradientGenerator extends Component<any, any> {
   constructor(props: {changeColor: Function}) {
     super(props);
 
+    this.state = {
+      colorA: "#B149FF",
+      colorB: "#00ffff",
+    };
+
     window.onload = () => {
-      this.props.changeColor(this.colorA, this.colorB);
+      this.props.changeColor(this.state.colorA, this.state.colorB);
     }
   }
 
   componentDidMount() {
-    let pickerA = document.getElementById("color-a") as HTMLInputElement,
-      pickerB = document.getElementById("color-b") as HTMLInputElement;
+    let pickerA = document.getElementById("color-a") as HTMLInputElement;
+    let pickerB = document.getElementById("color-b") as HTMLInputElement;
 
     const colorA = pickerA.value,
       colorB = pickerB.value;
 
-    let hexTextA = document.getElementById("hexTextA") as HTMLParagraphElement,
-      hexTextB = document.getElementById("hexTextB") as HTMLParagraphElement;
+    let hexTextA = document.getElementById("hexTextA") as HTMLParagraphElement;
+    let hexTextB = document.getElementById("hexTextB") as HTMLParagraphElement;
 
     let generate = document.getElementById("generate") as HTMLButtonElement;
 
@@ -30,11 +32,17 @@ class GradientGenerator extends Component<{changeColor: Function}> {
 
     pickerA.addEventListener("input", (event) => {
       hexTextA.innerHTML = pickerA.value;
+      this.setState({
+        colorA: pickerA.value
+      });
       this.props.changeColor(pickerA.value, pickerB.value);
     }, false);
 
     pickerB.addEventListener("input", (event) => {
       hexTextB.innerHTML = pickerB.value;
+      this.setState({
+        colorB: pickerB.value
+      });
       this.props.changeColor(pickerA.value, pickerB.value);
     }, false);
 
@@ -85,13 +93,13 @@ class GradientGenerator extends Component<{changeColor: Function}> {
       <Row gutter={[8, 8]}>
         <Col span={12}>
           <form>
-            <input type="color" id="color-a" style={{width: '100%'}} value={this.colorA}/>
+            <input type="color" id="color-a" style={{width: '100%'}} value={this.state.colorA}/>
             <p id="hexTextA"></p>
           </form>
         </Col>
         <Col span={12}>
           <form>
-            <input type="color" id="color-b" style={{width: '100%'}} value={this.colorB}/>
+            <input type="color" id="color-b" style={{width: '100%'}} value={this.state.colorB}/>
             <p id="hexTextB"></p>
           </form>
         </Col>

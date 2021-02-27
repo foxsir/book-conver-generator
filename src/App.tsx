@@ -3,14 +3,15 @@ import './App.scss';
 import GradientGenerator from "./gradient-generator"
 import {fabric} from "fabric";
 import * as blobs2 from "blobs/v2";
-import {Button, Card, Col, Image, Input, Row, Radio} from 'antd';
+import {Button, Card, Col, Image, Input, Row, Radio, Select} from 'antd';
 import {
   AlignCenterOutlined,
   AlignLeftOutlined,
   AlignRightOutlined
 } from '@ant-design/icons';
 
-const {TextArea} = Input;
+const { Option } = Select;
+
 
 class App extends Component<any, any> {
   private canvas: fabric.Canvas = new fabric.Canvas('canvas');
@@ -24,6 +25,14 @@ class App extends Component<any, any> {
   public background: fabric.Object | undefined;
   public illustration: fabric.Object | undefined;
 
+  public fonts = [
+    {label: "思源黑体", name: "SourceHanSansSC-Regular"},
+    {label: "思源黑体 HW Bold", name: "SourceHanSansHWSC-Bold"},
+    {label: "思源黑体 HW", name: "SourceHanSansHWSC-Regular"},
+    {label: "思源黑体 Medium", name: "SourceHanSansSC-Medium"},
+    {label: "思源黑体 Normal", name: "SourceHanSansSC-Normal"},
+  ];
+
   private illustrationList: { name: string, path: string }[] = [
     {name: 'bird', path: "/assets/images/illustration/bird.svg"},
     {name: 'bird-1', path: "/assets/images/illustration/bird-1.svg"},
@@ -34,6 +43,7 @@ class App extends Component<any, any> {
     this.state = {
       textAlign: 'center',
       filterIllustration: "",
+      font: this.fonts[0].name
     };
   }
 
@@ -118,7 +128,6 @@ class App extends Component<any, any> {
       this.blob = fabric.util.groupSVGElements(objects, options);
       this.blob.set({
         top: this.height / 2,
-        left: 10,
         originX: "center",
         originY: "top",
         selectable: false
@@ -136,8 +145,7 @@ class App extends Component<any, any> {
     fabric.loadSVGFromURL(path, (objects, options) => {
       this.illustration = fabric.util.groupSVGElements(objects, options);
       this.illustration.set({
-        top: this.height / 2,
-        left: this.width - 140,
+        top: this.height / 2 + 40,
         originX: "center",
         originY: "top",
         selectable: false
@@ -173,6 +181,7 @@ class App extends Component<any, any> {
     let string = "Book Title";
     this.title = new fabric.Text(string, {
       fontSize: 32,
+      fontFamily: this.state.font,
       originX: 'center',
       originY: 'center',
       top: 80,
@@ -193,6 +202,7 @@ class App extends Component<any, any> {
   renderSubTitle() {
     this.subTitle = new fabric.Text('Book SubTitle', {
       fontSize: 22,
+      fontFamily: this.state.font,
       originX: 'center',
       originY: 'center',
       top: 120,
@@ -210,7 +220,8 @@ class App extends Component<any, any> {
 
   renderDescription() {
     this.description = new fabric.Text('Description', {
-      fontSize: 16,
+      fontSize: 14,
+      fontFamily: this.state.font,
       originX: 'center',
       originY: 'center',
       top: this.height - 20,
@@ -331,6 +342,26 @@ class App extends Component<any, any> {
     this.canvas.renderAll();
   }
 
+  selectFont(value: string) {
+    this.title?.set({fontFamily: value});
+    this.subTitle?.set({fontFamily: value});
+    this.description?.set({fontFamily: value});
+    this.canvas.renderAll();
+  }
+
+  renderFonts() {
+    const fonts: any[] = [];
+    this.fonts.forEach((font: any) => {
+      fonts.push(<Option value={font.name}>{font.label}</Option>);
+    });
+
+    return (
+      <Select defaultValue={this.fonts[0].name} style={{ width: 150 }} onChange={this.selectFont.bind(this)}>
+        {fonts}
+      </Select>
+    );
+  }
+
   saveCover() {
     const d = document.createElement("a");
     d.href = this.canvas.toDataURL({format: 'jpeg'});
@@ -354,11 +385,12 @@ class App extends Component<any, any> {
             <Row gutter={[16, 16]}>
               <Col span={24}>
                 <Row gutter={8}>
-                  <Col span={16}>
+                  <Col span={12}>
                     <Input placeholder="标题" defaultValue={"Book Title"} onChange={this.changeTitle.bind(this)} />
                   </Col>
-                  <Col span={8}>
+                  <Col span={12}>
                     <Row justify={"end"} gutter={8}>
+                      <Col>{this.renderFonts()}</Col>
                       <Col><Button type={"primary"} onClick={this.changeColor.bind(this)} style={{color: 'white'}}>字体颜色</Button></Col>
                       <Col>
                         <Radio.Group value={this.state.textAlign} onChange={this.changeTextAlign.bind(this)}>
