@@ -1,1 +1,10 @@
-@import "~office-ui-fabric-core/src/sass/Fabric";
+@import '~antd/dist/antd.css';
+
+#main {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.canvas-container {
+  margin: auto;
+}
