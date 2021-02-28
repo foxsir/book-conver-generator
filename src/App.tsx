@@ -155,7 +155,7 @@ class App extends Component<any, any> {
         image.set({
           scaleY: scaleY,
           scaleX: scaleX,
-          top: this.height / 2 + ((200-(image.height * scaleX))),
+          top: this.height / 2 + (200-(image.height * scaleX)),
           originX: "center",
           originY: "top",
           selectable: false
@@ -262,17 +262,12 @@ class App extends Component<any, any> {
           list.push(
             <Col span={6} style={{height: '100%'}}>
               <Card
+                title={illustration.name}
                 hoverable
-                style={{width: "100%", height: '100%'}}
+                cover={<img src={illustration.path} />}
+                onClick={() => this.renderIllustration(illustration.path)}
+                style={{height: '100%'}}
               >
-                <Image
-                  onClick={() => this.renderIllustration(illustration.path)}
-                  preview={false}
-                  width={"100%"}
-                  src={illustration.path}
-                />
-                <Button block type={"text"}
-                        onClick={() => this.renderIllustration(illustration.path)}>{illustration.name}</Button>
               </Card>
             </Col>
           );
@@ -281,17 +276,12 @@ class App extends Component<any, any> {
         list.push(
           <Col span={6} style={{height: '100%'}}>
             <Card
+              title={illustration.name}
               hoverable
-              style={{width: "100%", height: '100%'}}
+              cover={<img src={illustration.path} />}
+              onClick={() => this.renderIllustration(illustration.path)}
+              style={{height: '100%'}}
             >
-              <Image
-                onClick={() => this.renderIllustration(illustration.path)}
-                preview={false}
-                width={"100%"}
-                src={illustration.path}
-              />
-              <Button block type={"text"}
-                      onClick={() => this.renderIllustration(illustration.path)}>{illustration.name}</Button>
             </Card>
           </Col>
         );
