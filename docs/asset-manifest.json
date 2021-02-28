@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.599252e3.chunk.css",
+    "main.js": "/static/js/main.30fdef7f.chunk.js",
+    "main.js.map": "/static/js/main.30fdef7f.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.044a4810.js",
+    "runtime-main.js.map": "/static/js/runtime-main.044a4810.js.map",
+    "static/css/2.4e544775.chunk.css": "/static/css/2.4e544775.chunk.css",
+    "static/js/2.582d5184.chunk.js": "/static/js/2.582d5184.chunk.js",
+    "static/js/2.582d5184.chunk.js.map": "/static/js/2.582d5184.chunk.js.map",
+    "static/js/3.e7743d46.chunk.js": "/static/js/3.e7743d46.chunk.js",
+    "static/js/3.e7743d46.chunk.js.map": "/static/js/3.e7743d46.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.4e544775.chunk.css.map": "/static/css/2.4e544775.chunk.css.map",
+    "static/css/main.599252e3.chunk.css.map": "/static/css/main.599252e3.chunk.css.map",
+    "static/js/2.582d5184.chunk.js.LICENSE.txt": "/static/js/2.582d5184.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/static/media/SourceHanSansSC-Regular.a8f9fd2c.otf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.044a4810.js",
+    "static/css/2.4e544775.chunk.css",
+    "static/js/2.582d5184.chunk.js",
+    "static/css/main.599252e3.chunk.css",
+    "static/js/main.30fdef7f.chunk.js"
+  ]
+}
