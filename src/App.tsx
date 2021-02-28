@@ -30,7 +30,6 @@ class App extends Component<any, any> {
     {label: "思源黑体 HW Bold", name: "SourceHanSansHWSC-Bold"},
     {label: "思源黑体 HW", name: "SourceHanSansHWSC-Regular"},
     {label: "思源黑体 Medium", name: "SourceHanSansSC-Medium"},
-    {label: "思源黑体 Normal", name: "SourceHanSansSC-Normal"},
   ];
 
   private illustrationList: { name: string, path: string }[] = [
