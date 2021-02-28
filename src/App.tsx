@@ -144,7 +144,7 @@ class App extends Component<any, any> {
   private setImage(path: string) {
     fabric.Image.fromURL(path, (image: fabric.Image) => {
       if (image && image.width && image.height) {
-        let scaleY = 200 / image.height;
+        let scaleY = 250 / image.height;
         let scaleX = (image.width * scaleY) / image.width;
 
         if (image.width * scaleY > 250) {
@@ -155,10 +155,10 @@ class App extends Component<any, any> {
         image.set({
           scaleY: scaleY,
           scaleX: scaleX,
-          top: this.height / 2 + ((256-(image.height * scaleX))/2),
+          top: this.height / 2 + ((200-(image.height * scaleX))),
           originX: "center",
           originY: "top",
-          // selectable: false
+          selectable: false
         })
       }
       if (this.illustration) {
