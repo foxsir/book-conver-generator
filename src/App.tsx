@@ -9,9 +9,9 @@ import {
   AlignLeftOutlined,
   AlignRightOutlined
 } from '@ant-design/icons';
+import illustrationList from "./illustration-json";
 
 const { Option } = Select;
-
 
 class App extends Component<any, any> {
   private canvas: fabric.Canvas = new fabric.Canvas('canvas');
@@ -32,10 +32,7 @@ class App extends Component<any, any> {
     {label: "思源黑体 Medium", name: "SourceHanSansSC-Medium"},
   ];
 
-  private illustrationList: { name: string, path: string }[] = [
-    {name: 'bird', path: "/assets/images/illustration/bird.svg"},
-    {name: 'bird-1', path: "/assets/images/illustration/bird-1.svg"},
-  ]
+  private illustrationList: { name: string, path: string }[] = illustrationList;
 
   constructor(props: any) {
     super(props);
@@ -147,15 +144,21 @@ class App extends Component<any, any> {
   private setImage(path: string) {
     fabric.Image.fromURL(path, (image: fabric.Image) => {
       if (image && image.width && image.height) {
-        let scaleX = 200 / image.width;
-        let scaleY = (image.height * scaleX) / image.height;;
+        let scaleY = 200 / image.height;
+        let scaleX = (image.width * scaleY) / image.width;
+
+        if (image.width * scaleY > 250) {
+          scaleX = 200 / image.width;
+          scaleY = (image.height * scaleX) / image.height;
+        }
+
         image.set({
           scaleY: scaleY,
           scaleX: scaleX,
           top: this.height / 2 + ((256-(image.height * scaleX))/2),
           originX: "center",
           originY: "top",
-          selectable: false
+          // selectable: false
         })
       }
       if (this.illustration) {
@@ -257,10 +260,10 @@ class App extends Component<any, any> {
       if (this.state.filterIllustration && this.state.filterIllustration.length) {
         if (illustration.name.search(this.state.filterIllustration) > -1) {
           list.push(
-            <Col span={6}>
+            <Col span={6} style={{height: '100%'}}>
               <Card
                 hoverable
-                style={{width: "100%"}}
+                style={{width: "100%", height: '100%'}}
               >
                 <Image
                   onClick={() => this.renderIllustration(illustration.path)}
@@ -276,10 +279,10 @@ class App extends Component<any, any> {
         }
       } else {
         list.push(
-          <Col span={6}>
+          <Col span={6} style={{height: '100%'}}>
             <Card
               hoverable
-              style={{width: "100%"}}
+              style={{width: "100%", height: '100%'}}
             >
               <Image
                 onClick={() => this.renderIllustration(illustration.path)}
@@ -397,7 +400,7 @@ class App extends Component<any, any> {
 
   render() {
     return (
-      <div id={"main"} style={{marginTop: '5vh'}}>
+      <div id={"main"} style={{marginTop: '2vh'}}>
         <Row gutter={16}>
           <Col span={8}>
             <Row gutter={[8, 16]}>
@@ -438,7 +441,7 @@ class App extends Component<any, any> {
                        onChange={this.changeDescription.bind(this)} />
               </Col>
               <Col span={24}>
-                <Card title="选择插画" extra={
+                <Card title="选择插画 (可拖动)" extra={
                   <Row gutter={8}>
                     <Col>
                       <label className="ant-btn">
@@ -452,7 +455,7 @@ class App extends Component<any, any> {
                     </Col>
                   </Row>
                 }>
-                  <Row gutter={[8, 8]} style={{height: '300px', overflowY: 'scroll'}}>
+                  <Row gutter={[8, 8]} style={{height: '300px', overflowY: 'scroll', overflowX: 'hidden'}}>
                     {this.renderIllustrationBox()}
                   </Row>
                 </Card>
@@ -462,6 +465,18 @@ class App extends Component<any, any> {
                   <GradientGenerator changeColor={this.renderBackground.bind(this)} />
                 </Card>
               </Col>
+            </Row>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <p>插画来自：</p>
+          </Col>
+          <Col span={24}>
+            <Row gutter={8}>
+              <Col><a className={'ant-btn ant-btn-link'} href="http://www.freepik.com" target={"_blank"}>Designed by macrovector / Freepik</a></Col>
+              <Col><a className={'ant-btn ant-btn-link'} href="http://all-free-download.com/" target={"_blank"}>Designed by All-free-download</a></Col>
+              <Col><a className={'ant-btn ant-btn-link'} href="https://svgporn.com/" target={"_blank"}>SVG PORN</a></Col>
             </Row>
           </Col>
         </Row>
