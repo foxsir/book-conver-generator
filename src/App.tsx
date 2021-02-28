@@ -142,16 +142,30 @@ class App extends Component<any, any> {
     if (this.illustration) {
       this.canvas.remove(this.illustration);
     }
-    fabric.loadSVGFromURL(path, (objects, options) => {
-      this.illustration = fabric.util.groupSVGElements(objects, options);
-      this.illustration.set({
-        top: this.height / 2 + 40,
-        originX: "center",
-        originY: "top",
-        selectable: false
-      });
+    this.setImage(path);
+  }
+
+  private setImage(path: string) {
+    fabric.Image.fromURL(path, (image: fabric.Image) => {
+      if (image && image.width && image.height) {
+        let scaleX = 200 / image.width;
+        let scaleY = (image.height * scaleX) / image.height;;
+        image.set({
+          scaleY: scaleY,
+          scaleX: scaleX,
+          top: this.height / 2 + ((256-(image.height * scaleX))/2),
+          originX: "center",
+          originY: "top",
+          selectable: false
+        })
+      }
+      if (this.illustration) {
+        this.canvas.remove(this.illustration);
+      }
+
+      this.illustration = image;
+      this.canvas.add(this.illustration);
       this.canvas.centerObjectH(this.illustration);
-      this.canvas.add(this.illustration.scale(0.3));
       this.canvas.renderAll();
     });
   }
@@ -362,6 +376,19 @@ class App extends Component<any, any> {
     );
   }
 
+  uploadIllustration(event: any) {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      // convert image file to base64 string
+      if(reader.result) {
+        this.setImage(reader.result.toString());
+      }
+    }, false);
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
   saveCover() {
     const d = document.createElement("a");
     d.href = this.canvas.toDataURL({format: 'jpeg'});
@@ -376,7 +403,7 @@ class App extends Component<any, any> {
           <Col span={8}>
             <Row gutter={[8, 16]}>
               <canvas id={"canvas"} width={this.width} height={this.height}></canvas>
-              <Button type={"primary"} onClick={this.saveCover.bind(this)} style={{width: '100%'}}>
+              <Button type={"link"} onClick={this.saveCover.bind(this)} style={{width: '100%'}}>
                 保存存图片
               </Button>
             </Row>
@@ -414,9 +441,15 @@ class App extends Component<any, any> {
               <Col span={24}>
                 <Card title="选择插画" extra={
                   <Row gutter={8}>
+                    <Col>
+                      <label className="ant-btn">
+                        自定义插画
+                        <input hidden={true} onChange={this.uploadIllustration.bind(this)} type={'file'} id={'upload-illustration'} />
+                      </label>
+                    </Col>
                     <Col><Button onClick={this.renderRandomBlob.bind(this)}>更换背景</Button></Col>
                     <Col>
-                      <Input style={{width: '500px'}} placeholder={'筛选插画'} onChange={this.filterIllustration.bind(this)}/>
+                      <Input style={{width: '300px'}} placeholder={'筛选插画'} onChange={this.filterIllustration.bind(this)}/>
                     </Col>
                   </Row>
                 }>
