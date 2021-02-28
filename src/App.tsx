@@ -3,11 +3,12 @@ import './App.scss';
 import GradientGenerator from "./gradient-generator"
 import {fabric} from "fabric";
 import * as blobs2 from "blobs/v2";
-import {Button, Card, Col, Image, Input, Row, Radio, Select} from 'antd';
+import {Button, Card, Col, Tooltip, Input, Row, Radio, Select} from 'antd';
 import {
   AlignCenterOutlined,
   AlignLeftOutlined,
-  AlignRightOutlined
+  AlignRightOutlined,
+  CloseCircleOutlined
 } from '@ant-design/icons';
 import illustrationList from "./illustration-json";
 
@@ -100,6 +101,12 @@ class App extends Component<any, any> {
     this.canvas.add(this.background);
     this.background.sendToBack();
     this.canvas.renderAll();
+  }
+
+  removeRandomBlob() {
+    if (this.blob) {
+      this.canvas.remove(this.blob);
+    }
   }
 
   renderRandomBlob() {
@@ -439,7 +446,13 @@ class App extends Component<any, any> {
                         <input hidden={true} onChange={this.uploadIllustration.bind(this)} type={'file'} id={'upload-illustration'} />
                       </label>
                     </Col>
-                    <Col><Button onClick={this.renderRandomBlob.bind(this)}>更换背景</Button></Col>
+                    <Col>
+                      <Button onClick={this.renderRandomBlob.bind(this)}>更换背景</Button>
+                      &nbsp;
+                      <Tooltip title={'删除背景'}>
+                        <Button type="primary" onClick={this.removeRandomBlob.bind(this)} icon={<CloseCircleOutlined />} />
+                      </Tooltip>
+                    </Col>
                     <Col>
                       <Input style={{width: '300px'}} placeholder={'筛选插画'} onChange={this.filterIllustration.bind(this)}/>
                     </Col>
