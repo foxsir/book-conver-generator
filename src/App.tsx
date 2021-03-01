@@ -430,7 +430,7 @@ class App extends Component<any, any> {
 
   saveCover() {
     const d = document.createElement("a");
-    d.href = this.canvas.toDataURL({format: 'jpeg'});
+    d.href = this.canvas.toDataURL({format: 'png'});
     d.download = "cover";
     d.click();
   }
