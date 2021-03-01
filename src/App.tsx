@@ -25,6 +25,7 @@ class App extends Component<any, any> {
   public blob: fabric.Object | undefined;
   public background: fabric.Object | undefined;
   public illustration: fabric.Object | undefined;
+  public bookNumber: fabric.Group | undefined;
 
   public fonts = [
     {label: "思源黑体", name: "SourceHanSansSC-Regular"},
@@ -215,6 +216,45 @@ class App extends Component<any, any> {
 
     this.canvas.centerObjectH(this.title);
     this.canvas.add(this.title);
+  }
+
+  renderNumber(event: any) {
+    if (this.bookNumber && event.target.value.length === 0) {
+      this.canvas.remove(this.bookNumber);
+      this.canvas.renderAll();
+      return;
+    } else {
+      if (this.bookNumber) {
+        this.canvas.remove(this.bookNumber);
+      }
+      let number = event.target.value.slice(0, 2);
+      let string = `第${number}版`;
+      let bg = new fabric.Rect({
+        fill: 'rgba(0,0,0,0.2)',
+        scaleY: 0.5,
+        originX: 'center',
+        originY: 'center',
+        rx: 5,
+        ry: 5,
+        height: 34,
+        width: 44
+      });
+      let text = new fabric.Text(string, {
+        fontSize: 12,
+        fontFamily: this.state.font,
+        fill: "white",
+        selectable: false
+      });
+
+      this.bookNumber = new fabric.Group([ bg, text ], {
+        originX: 'center',
+        originY: 'center',
+        top: this.height - 20,
+        left: this.width - 50
+      });
+      this.canvas.add(this.bookNumber);
+      this.canvas.renderAll();
+    }
   }
 
   changeSubTitle(event: any = null) {
@@ -433,9 +473,19 @@ class App extends Component<any, any> {
                 <Input placeholder="副标题" defaultValue={"Book SubTitle"} onChange={this.changeSubTitle.bind(this)} />
               </Col>
               <Col span={24}>
-                <Input placeholder="描述"
-                       defaultValue="Description"
-                       onChange={this.changeDescription.bind(this)} />
+                <Row gutter={8}>
+                  <Col span={12}>
+                    <Input placeholder="描述"
+                           defaultValue="Description"
+                           onChange={this.changeDescription.bind(this)} />
+                  </Col>
+                  <Col span={12}>
+                    <Input placeholder="编号"
+                           type={'number'}
+                           max={20}
+                           onChange={this.renderNumber.bind(this)} />
+                  </Col>
+                </Row>
               </Col>
               <Col span={24}>
                 <Card title="选择插画" extra={
