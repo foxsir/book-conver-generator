@@ -441,10 +441,12 @@ class App extends Component<any, any> {
                 <Card title="选择插画" extra={
                   <Row gutter={8}>
                     <Col>
-                      <label className="ant-btn">
-                        自定义插画
-                        <input hidden={true} onChange={this.uploadIllustration.bind(this)} type={'file'} id={'upload-illustration'} />
-                      </label>
+                      <Tooltip title={'支持svg、jpg、png'}>
+                        <label className="ant-btn">
+                          自定义插画
+                          <input hidden={true} onChange={this.uploadIllustration.bind(this)} type={'file'} id={'upload-illustration'} />
+                        </label>
+                      </Tooltip>
                     </Col>
                     <Col>
                       <Button onClick={this.renderRandomBlob.bind(this)}>更换背景</Button>
