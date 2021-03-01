@@ -438,7 +438,7 @@ class App extends Component<any, any> {
                        onChange={this.changeDescription.bind(this)} />
               </Col>
               <Col span={24}>
-                <Card title="选择插画 (可拖动)" extra={
+                <Card title="选择插画" extra={
                   <Row gutter={8}>
                     <Col>
                       <label className="ant-btn">
