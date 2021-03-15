@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/book-conver-generator/static/css/main.9715db32.chunk.css",
-    "main.js": "/book-conver-generator/static/js/main.69f5f53a.chunk.js",
-    "main.js.map": "/book-conver-generator/static/js/main.69f5f53a.chunk.js.map",
-    "runtime-main.js": "/book-conver-generator/static/js/runtime-main.6a2a75b1.js",
-    "runtime-main.js.map": "/book-conver-generator/static/js/runtime-main.6a2a75b1.js.map",
-    "static/css/2.4e544775.chunk.css": "/book-conver-generator/static/css/2.4e544775.chunk.css",
-    "static/js/2.337cf952.chunk.js": "/book-conver-generator/static/js/2.337cf952.chunk.js",
-    "static/js/2.337cf952.chunk.js.map": "/book-conver-generator/static/js/2.337cf952.chunk.js.map",
-    "static/js/3.f5ef5fc1.chunk.js": "/book-conver-generator/static/js/3.f5ef5fc1.chunk.js",
-    "static/js/3.f5ef5fc1.chunk.js.map": "/book-conver-generator/static/js/3.f5ef5fc1.chunk.js.map",
-    "index.html": "/book-conver-generator/index.html",
-    "static/css/2.4e544775.chunk.css.map": "/book-conver-generator/static/css/2.4e544775.chunk.css.map",
-    "static/css/main.9715db32.chunk.css.map": "/book-conver-generator/static/css/main.9715db32.chunk.css.map",
-    "static/js/2.337cf952.chunk.js.LICENSE.txt": "/book-conver-generator/static/js/2.337cf952.chunk.js.LICENSE.txt",
-    "static/media/App.scss": "/book-conver-generator/static/media/SourceHanSansSC-Regular.a8f9fd2c.otf"
+    "main.css": "/static/css/main.6754d611.chunk.css",
+    "main.js": "/static/js/main.69f5f53a.chunk.js",
+    "main.js.map": "/static/js/main.69f5f53a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ad7f43c5.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ad7f43c5.js.map",
+    "static/css/2.4e544775.chunk.css": "/static/css/2.4e544775.chunk.css",
+    "static/js/2.337cf952.chunk.js": "/static/js/2.337cf952.chunk.js",
+    "static/js/2.337cf952.chunk.js.map": "/static/js/2.337cf952.chunk.js.map",
+    "static/js/3.f5ef5fc1.chunk.js": "/static/js/3.f5ef5fc1.chunk.js",
+    "static/js/3.f5ef5fc1.chunk.js.map": "/static/js/3.f5ef5fc1.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.4e544775.chunk.css.map": "/static/css/2.4e544775.chunk.css.map",
+    "static/css/main.6754d611.chunk.css.map": "/static/css/main.6754d611.chunk.css.map",
+    "static/js/2.337cf952.chunk.js.LICENSE.txt": "/static/js/2.337cf952.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/static/media/SourceHanSansSC-Regular.a8f9fd2c.otf"
   },
   "entrypoints": [
-    "static/js/runtime-main.6a2a75b1.js",
+    "static/js/runtime-main.ad7f43c5.js",
     "static/css/2.4e544775.chunk.css",
     "static/js/2.337cf952.chunk.js",
-    "static/css/main.9715db32.chunk.css",
+    "static/css/main.6754d611.chunk.css",
     "static/js/main.69f5f53a.chunk.js"
   ]
 }
