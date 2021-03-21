@@ -181,7 +181,7 @@ class App extends Component<any, any> {
   }
 
   renderLogo() {
-    fabric.loadSVGFromURL('/assets/images/logo-fill.svg', (objects, options) => {
+    fabric.loadSVGFromURL('assets/images/logo-fill.svg', (objects, options) => {
       let shape = fabric.util.groupSVGElements(objects, options);
       shape.set({
         top: 10,
