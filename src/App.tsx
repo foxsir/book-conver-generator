@@ -24,8 +24,10 @@ class App extends Component<any, any> {
   public description: fabric.Text | undefined;
   public blob: fabric.Object | undefined;
   public background: fabric.Object | undefined;
+  public textBG: fabric.Object | undefined;
   public illustration: fabric.Object | undefined;
   public bookNumber: fabric.Group | undefined;
+  private customBackground = false;
 
   public fonts = [
     {label: "思源黑体", name: "SourceHanSansSC-Regular"},
@@ -67,6 +69,7 @@ class App extends Component<any, any> {
   }
 
   renderBackground(colorA: string, colorB: string) {
+    this.customBackground = false;
     if (this.background) {
       this.canvas.remove(this.background);
     }
@@ -101,6 +104,13 @@ class App extends Component<any, any> {
     this.background.fill = grad;
     this.canvas.add(this.background);
     this.background.sendToBack();
+
+    if (this.textBG) {
+      this.textBG.set({
+        fill: "rgba(255,255,255,0)",
+      });
+    }
+
     this.canvas.renderAll();
   }
 
@@ -208,7 +218,7 @@ class App extends Component<any, any> {
       fontFamily: this.state.font,
       originX: 'center',
       originY: 'center',
-      top: 80,
+      top: 120,
       fill: this.fontColor,
       textAlign: 'center',
       selectable: false
@@ -268,7 +278,7 @@ class App extends Component<any, any> {
       fontFamily: this.state.font,
       originX: 'center',
       originY: 'center',
-      top: 120,
+      top: 160,
       fill: this.fontColor,
       selectable: false
     });
@@ -354,6 +364,10 @@ class App extends Component<any, any> {
     this.title?.set({fill: this.fontColor});
     this.subTitle?.set({fill: this.fontColor});
     this.description?.set({fill: this.fontColor});
+
+    if (this.customBackground) {
+      this.setTextBG();
+    }
     this.canvas.renderAll();
   }
 
@@ -413,6 +427,88 @@ class App extends Component<any, any> {
         {fonts}
       </Select>
     );
+  }
+
+  removeIllustration() {
+    if (this.illustration) {
+      this.canvas.remove(this.illustration);
+      this.canvas.renderAll();
+    }
+  }
+
+  uploadBackground(event: any) {
+    if (this.background) {
+      this.canvas.remove(this.background);
+    }
+
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      // convert image file to base64 string
+      if(reader.result) {
+        this.setCustomBackground(reader.result.toString());
+      }
+    }, false);
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+  setCustomBackground(path: string) {
+    this.customBackground = true;
+    fabric.Image.fromURL(path, (image: fabric.Image) => {
+      if (this.background) {
+        this.canvas.remove(this.background);
+      }
+
+      this.background = image;
+      if (image && image.width && image.height) {
+        let WP = this.width / image.width;
+        this.background.scale(WP);
+
+        if (image.height * WP < this.height) {
+          let HP = this.height / image.height;
+          this.background.scale(HP);
+        }
+      }
+
+      this.setTextBG();
+      if (this.textBG) {
+        this.textBG.sendToBack();
+      }
+
+      this.background.set({
+        top: this.height / 2,
+        left: this.width / 2,
+        selectable: false
+      });
+
+      this.canvas.add(this.background);
+      this.canvas.centerObjectH(this.background);
+      this.background.sendToBack();
+      this.canvas.renderAll();
+    });
+  }
+
+  setTextBG() {
+    if (this.textBG === undefined) {
+      this.textBG = new fabric.Rect({
+        fill: this.fontColor === "black" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)",
+        originX: 'center',
+        originY: 'center',
+        top: 140,
+        left: this.width / 2,
+        width: this.width,
+        height: 90,
+        selectable: false
+      });
+      this.canvas.add(this.textBG);
+      this.canvas.renderAll();
+    } else {
+      this.textBG.set({
+        fill: this.fontColor === "black" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)",
+      });
+      this.canvas.renderAll();
+    }
   }
 
   uploadIllustration(event: any) {
@@ -488,8 +584,21 @@ class App extends Component<any, any> {
                 </Row>
               </Col>
               <Col span={24}>
+                <Card>
+                  <Tooltip title={'支持svg、jpg、png'}>
+                    <label className="ant-btn">
+                      自定义背景图
+                      <input hidden={true} onChange={this.uploadBackground.bind(this)} type={'file'} id={'upload-illustration'} />
+                    </label>
+                  </Tooltip>
+                </Card>
+              </Col>
+              <Col span={24}>
                 <Card title="选择插画" extra={
                   <Row gutter={8}>
+                    <Col>
+                      <Button onClick={this.removeIllustration.bind(this)}>删除</Button>
+                    </Col>
                     <Col>
                       <Tooltip title={'支持svg、jpg、png'}>
                         <label className="ant-btn">
